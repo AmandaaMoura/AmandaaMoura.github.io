@@ -2,6 +2,8 @@ export const profile = {
   name: 'Amanda de Moura',
   role: 'Desenvolvedora de software',
   city: 'Brasília',
+  location: 'Brasília, DF',
+  cv: '/curriculo-amanda-de-moura.pdf',
   intro:
     'Construo aplicações web do front ao back. Passei por React, Node.js e Django, e agora estou aprofundando backend com C#\u00a0e\u00a0.NET.',
   about: [
@@ -77,9 +79,11 @@ export type Project = {
   context: string
   text: string
   stack: string[]
-  href?: string
-  hrefLabel?: string
+  category: ProjectCategory
 }
+
+export type ProjectCategory = 'Web' | 'IA' | 'UX/UI'
+export const projectCategories: ProjectCategory[] = ['Web', 'IA', 'UX/UI']
 
 export const projects: Project[] = [
   {
@@ -87,24 +91,28 @@ export const projects: Project[] = [
     context: 'Figueiredo & Velloso',
     text: 'Aplicação que resume processos judiciais com IA. Fiz o front-end em Next.js e a autenticação com Express.',
     stack: ['Next.js', 'Express', 'IA generativa'],
+    category: 'IA',
   },
   {
     name: 'Calculadora de lucro para Legal Claims',
     context: 'Figueiredo & Velloso',
     text: 'Calcula o lucro de um portfólio de legal claims. A interface foi desenhada para inserir muitos valores rápido, com o menor número de cliques possível.',
     stack: ['React', 'TypeScript', 'UX/UI'],
+    category: 'UX/UI',
   },
   {
     name: 'Site institucional',
     context: 'Figueiredo & Velloso',
     text: 'Reconstrução do site do escritório, com front-end em React e backend em Django.',
     stack: ['React', 'Tailwind', 'Django', 'Python'],
+    category: 'Web',
   },
   {
     name: 'CAPJU',
     context: 'Universidade de Brasília',
     text: 'Sistema acessível de apoio à rotina de servidores do judiciário, construído em squads ágeis.',
     stack: ['React', 'Node.js', 'Docker'],
+    category: 'Web',
   },
 ]
 
@@ -140,4 +148,55 @@ export const languages = [
   { name: 'Português', level: 'Nativo' },
   { name: 'Inglês', level: 'Intermediário (B2)' },
   { name: 'Francês', level: 'Básico (A2)' },
+]
+
+export type Service = { icon: 'web' | 'server' | 'design' | 'spark'; title: string; text: string }
+
+export const services: Service[] = [
+  {
+    icon: 'web',
+    title: 'Desenvolvimento web',
+    text: 'Aplicações em React, Next.js e TypeScript, responsivas e acessíveis.',
+  },
+  {
+    icon: 'server',
+    title: 'Backend',
+    text: 'APIs e regras de negócio com Django e Node.js. Hoje, aprofundando C# e .NET.',
+  },
+  {
+    icon: 'design',
+    title: 'UX/UI Design',
+    text: 'Interfaces desenhadas no Figma a partir das necessidades reais de quem vai usar.',
+  },
+  {
+    icon: 'spark',
+    title: 'IA aplicada',
+    text: 'Produtos com IA generativa e experiência em avaliar e treinar modelos de linguagem.',
+  },
+]
+
+export const toolbelt = [
+  'React',
+  'TypeScript',
+  'Next.js',
+  'Tailwind',
+  'Django',
+  'Python',
+  'Node.js',
+  'Express',
+  'Docker',
+  'Figma',
+  'C# e .NET',
+  'Git',
+]
+
+export const roadmapPhases = [
+  { title: 'Ajustes no currículo e no perfil', weeks: 'Semana 1' },
+  { title: 'C# e .NET na prática', weeks: 'Semanas 2 a 5' },
+  { title: 'SQL Server, Entity Framework e Dapper', weeks: 'Semanas 6 a 9' },
+  { title: 'Testes automatizados em C#', weeks: 'Semanas 10 e 11' },
+  { title: 'Mensageria e microsserviços', weeks: 'Semanas 12 a 16' },
+  { title: 'Observabilidade e performance', weeks: 'Semanas 17 e 18' },
+  { title: 'IA como ferramenta, não substituta', weeks: 'Semana 19' },
+  { title: 'Narrativas prontas para entrevista', weeks: 'Semana 20' },
 ]
