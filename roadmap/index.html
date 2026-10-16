@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roadmap backend .NET | Amanda Moura</title>
+<meta name="description" content="Plano de estudos e prática de Amanda Moura para a transição de front-end para backend .NET, montado a partir de um feedback de currículo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #F2F3F7;
+  --surface: #FFFFFF;
+  --ink: #1C1A2E;
+  --muted: #5F5C74;
+  --line: #D9D7E6;
+  --violet: #512BD4;
+  --violet-soft: #E9E4FB;
+  --done: #0E7C61;
+  --done-soft: #DDF2EA;
+  --focus: #512BD4;
+  --display: "Bricolage Grotesque", "Segoe UI", sans-serif;
+  --body: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #14131F;
+    --surface: #1D1B2C;
+    --ink: #ECEAF6;
+    --muted: #A5A1BE;
+    --line: #34314A;
+    --violet: #9B82FF;
+    --violet-soft: #2B2450;
+    --done: #4FD1A5;
+    --done-soft: #183A30;
+    --focus: #B7A6FF;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #14131F; --surface: #1D1B2C; --ink: #ECEAF6; --muted: #A5A1BE; --line: #34314A;
+  --violet: #9B82FF; --violet-soft: #2B2450; --done: #4FD1A5; --done-soft: #183A30; --focus: #B7A6FF;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.55;
+}
+a { color: var(--violet); }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; border-radius: 4px; }
+
+.wrap { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
+@media (min-width: 720px) { .wrap { padding: 0 32px; } }
+
+/* Top bar */
+.top {
+  position: sticky; top: 0; z-index: 5;
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 56px; }
+.top .who { font-family: var(--display); font-weight: 700; font-size: 1rem; text-decoration: none; color: var(--ink); }
+.meter { display: flex; align-items: center; gap: 12px; font-size: .9rem; color: var(--muted); }
+.meter .bar { width: 120px; height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; }
+.meter .bar span { display: block; height: 100%; width: 0; background: var(--done); transition: width .3s ease; }
+@media (max-width: 480px) { .meter .bar { width: 64px; } }
+
+/* Hero */
+.hero { padding: 64px 0 40px; }
+.hero h1 {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(2.4rem, 7vw, 4.6rem);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  margin: 0 0 20px;
+  max-width: 14ch;
+}
+.hero p.lead { font-size: 1.15rem; color: var(--muted); max-width: 60ch; margin: 0; }
+
+/* Trajectory graph: the memorable element */
+.graph { margin: 48px 0 8px; }
+.graph ol {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  position: relative;
+}
+.graph li { position: relative; padding: 36px 16px 0 0; }
+.graph li::before { /* rail */
+  content: ""; position: absolute; top: 11px; left: 0; right: 0; height: 3px; background: var(--ink);
+}
+.graph li:last-child::before {
+  background: repeating-linear-gradient(90deg, var(--violet) 0 10px, transparent 10px 18px);
+}
+.graph li::after { /* commit node */
+  content: ""; position: absolute; top: 2px; left: 0;
+  width: 21px; height: 21px; border-radius: 50%;
+  background: var(--paper); border: 3px solid var(--ink);
+}
+.graph li.next::after { border-color: var(--violet); background: var(--violet); box-shadow: 0 0 0 6px var(--violet-soft); }
+.graph .stack { font-family: var(--display); font-weight: 700; font-size: 1.35rem; line-height: 1.15; display: block; }
+.graph li.next .stack { color: var(--violet); }
+.graph .where { display: block; color: var(--muted); font-size: .92rem; margin-top: 4px; }
+@media (max-width: 719px) {
+  .graph ol { grid-template-columns: 1fr; }
+  .graph li { padding: 0 0 28px 40px; }
+  .graph li::before { top: 0; bottom: 0; left: 9px; right: auto; width: 3px; height: auto; }
+  .graph li:last-child::before { background: repeating-linear-gradient(180deg, var(--violet) 0 10px, transparent 10px 18px); bottom: 8px; }
+  .graph li::after { top: 0; }
+}
+
+/* Section headings */
+section.block { padding: 56px 0; border-top: 1px solid var(--line); }
+h2 {
+  font-family: var(--display); font-weight: 700;
+  font-size: clamp(1.7rem, 4vw, 2.3rem); line-height: 1.1; letter-spacing: -0.015em;
+  margin: 0 0 12px;
+}
+.intro { color: var(--muted); max-width: 62ch; margin: 0 0 32px; }
+
+/* Gap map */
+.gaps { display: grid; gap: 0; grid-template-columns: 1fr; border-top: 1px solid var(--line); }
+.gap { display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: baseline; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.gap strong { font-weight: 600; }
+.gap .why { display: block; color: var(--muted); font-size: .95rem; }
+.gap a { font-size: .95rem; white-space: nowrap; text-decoration: none; font-weight: 600; }
+.gap a:hover { text-decoration: underline; }
+@media (min-width: 900px) { .gaps { grid-template-columns: 1fr 1fr; column-gap: 48px; } }
+
+/* Timeline */
+.phases { list-style: none; margin: 0; padding: 0; position: relative; }
+.phase { position: relative; padding: 0 0 48px 56px; }
+.phase::before { content: ""; position: absolute; left: 17px; top: 40px; bottom: 0; width: 3px; background: var(--line); }
+.phase:last-child::before { display: none; }
+.phase .num {
+  position: absolute; left: 0; top: 0;
+  width: 38px; height: 38px; border-radius: 50%;
+  display: grid; place-items: center;
+  font-family: var(--display); font-weight: 700; font-size: 1rem;
+  background: var(--surface); border: 3px solid var(--ink); color: var(--ink);
+}
+.phase.complete .num { background: var(--done); border-color: var(--done); color: var(--paper); }
+.phase.complete::before { background: var(--done); }
+.phase header { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 16px; }
+.phase h3 { font-family: var(--display); font-weight: 700; font-size: 1.45rem; line-height: 1.2; margin: 4px 0 0; }
+.phase .weeks { color: var(--muted); font-size: .92rem; }
+.phase .count { margin-left: auto; font-size: .92rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.phase.complete .count { color: var(--done); font-weight: 600; }
+.phase .goal { margin: 10px 0 18px; max-width: 64ch; }
+.phase .source { display: inline-block; font-size: .85rem; color: var(--violet); background: var(--violet-soft); padding: 2px 10px; border-radius: 999px; margin-top: 8px; }
+
+.tasks { list-style: none; margin: 0 0 18px; padding: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+.tasks li + li { border-top: 1px solid var(--line); }
+.tasks label { display: grid; grid-template-columns: 22px 1fr; gap: 14px; padding: 14px 16px; cursor: pointer; align-items: start; }
+.tasks input { appearance: none; -webkit-appearance: none; margin: 2px 0 0; width: 22px; height: 22px; border: 2px solid var(--muted); border-radius: 6px; display: grid; place-items: center; cursor: pointer; background: var(--surface); }
+.tasks input:checked { background: var(--done); border-color: var(--done); }
+.tasks input:checked::after { content: ""; width: 6px; height: 11px; border: solid var(--surface); border-width: 0 2.5px 2.5px 0; transform: translate(0, -1px) rotate(45deg); }
+.tasks .t { font-weight: 500; display: block; }
+.tasks .d { display: block; color: var(--muted); font-size: .93rem; margin-top: 2px; }
+.tasks input:checked + span .t { text-decoration: line-through; text-decoration-color: var(--muted); color: var(--muted); }
+
+.dod { border-left: 3px solid var(--violet); padding: 2px 0 2px 16px; max-width: 64ch; }
+.dod b { display: block; font-weight: 600; margin-bottom: 2px; }
+.dod p { margin: 0; color: var(--muted); }
+
+/* Narrative builder */
+.builder { display: grid; gap: 40px; }
+@media (min-width: 900px) { .builder { grid-template-columns: 1fr 1fr; gap: 48px; } }
+.builder h3 { font-family: var(--display); font-weight: 700; font-size: 1.3rem; margin: 0 0 6px; }
+.builder .hint { color: var(--muted); font-size: .95rem; margin: 0 0 20px; }
+.field { margin-bottom: 16px; }
+.field label { display: block; font-weight: 600; font-size: .95rem; margin-bottom: 6px; }
+.field textarea {
+  width: 100%; min-height: 72px; resize: vertical;
+  font: inherit; font-size: .97rem; color: var(--ink);
+  background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px;
+}
+.field textarea:focus { outline: 2px solid var(--focus); outline-offset: 0; border-color: transparent; }
+.saved { font-size: .88rem; color: var(--muted); min-height: 1.3em; }
+
+.actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+button.ghost { font: inherit; font-size: .95rem; background: transparent; color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 8px 14px; cursor: pointer; }
+button.ghost:hover { border-color: var(--ink); }
+
+footer { padding: 40px 0 64px; color: var(--muted); font-size: .92rem; border-top: 1px solid var(--line); }
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="wrap">
+    <a class="who" href="/">Amanda Moura</a>
+    <div class="meter" aria-live="polite">
+      <span id="meterText">0 de 0 passos</span>
+      <div class="bar" aria-hidden="true"><span id="meterBar"></span></div>
+    </div>
+  </div>
+</div>
+
+<main>
+  <div class="wrap">
+    <section class="hero">
+      <h1>De interfaces a sistemas distribuídos</h1>
+      <p class="lead">Meu plano para virar desenvolvedora backend .NET. Cada fase fecha uma lacuna apontada no feedback do meu currículo e termina com algo que eu consiga mostrar e defender numa entrevista.</p>
+
+      <nav class="graph" aria-label="Trajetória até aqui">
+        <ol>
+          <li><span class="stack">React e TypeScript</span><span class="where">Front-end, interfaces e UX</span></li>
+          <li><span class="stack">Node.js</span><span class="where">Fullstack na UnB</span></li>
+          <li><span class="stack">Django</span><span class="where">Backend na Figueiredo &amp; Velloso</span></li>
+          <li class="next"><span class="stack">C# e .NET</span><span class="where">Próximo passo: este roadmap</span></li>
+        </ol>
+      </nav>
+    </section>
+
+    <section class="block" aria-labelledby="gaps-title">
+      <h2 id="gaps-title">O que o feedback apontou</h2>
+      <p class="intro">Os riscos para a vaga, cada um ligado à fase que trata dele.</p>
+      <div class="gaps" id="gaps"></div>
+    </section>
+
+    <section class="block" aria-labelledby="plan-title">
+      <h2 id="plan-title">O plano, fase a fase</h2>
+      <p class="intro">Cerca de 20 semanas em ritmo de meio período. As fases seguem em ordem porque cada uma usa o projeto da anterior: é um único sistema que cresce de uma API simples até serviços com mensageria e observabilidade. O progresso fica salvo neste navegador.</p>
+      <ol class="phases" id="phases"></ol>
+    </section>
+
+    <section class="block" id="narrativas" aria-labelledby="story-title">
+      <h2 id="story-title">Narrativas para entrevista</h2>
+      <p class="intro">O feedback pede duas histórias prontas. Escreva aqui conforme as fases avançam; o texto fica salvo neste navegador e pode ser copiado.</p>
+      <div class="builder">
+        <div>
+          <h3>Caso técnico em 3 minutos</h3>
+          <p class="hint">Uma decisão técnica real: a API na UnB, o trabalho com Django ou uma decisão das fases 2 a 5. Sem exagerar o próprio papel, deixando claro o que foi seu e o que foi do time.</p>
+          <div id="caseFields"></div>
+          <div class="saved" id="caseSaved"></div>
+        </div>
+        <div>
+          <h3>Como eu aprendo</h3>
+          <p class="hint">O ciclo de learning agility de uma transição real, como a ida para Node.js ou Django, e depois para .NET.</p>
+          <div id="learnFields"></div>
+          <div class="saved" id="learnSaved"></div>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="ghost" type="button" id="copyStories">Copiar as duas narrativas</button>
+        <button class="ghost" type="button" id="resetAll">Limpar progresso e textos</button>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">Montado a partir do feedback de currículo de outubro de 2026, com foco em vagas backend .NET.</div>
+</footer>
+
+<script>
+const PHASES = [
+  {
+    id: "cv", title: "Ajustes no currículo e no perfil", weeks: "Semana 1",
+    source: "Formação e posicionamento",
+    goal: "Corrigir o que custa pouco e muda a primeira leitura do recrutador: deixar a transição para backend clara e intencional.",
+    tasks: [
+      { id: "cv-grad", t: "Registrar status e previsão de conclusão da graduação", d: "Engenharia de Software na UnB, com mês e ano previstos." },
+      { id: "cv-headline", t: "Reescrever headline e resumo", d: "De “desenvolvedora web com design” para “desenvolvedora backend em evolução com visão full-stack”." },
+      { id: "cv-order", t: "Reordenar experiências", d: "UnB logo depois da Figueiredo & Velloso, para o backend aparecer cedo." },
+      { id: "cv-noise", t: "Reduzir o peso de marketing e comunicação", d: "Manter, mas em uma linha, sem competir com a narrativa técnica." },
+      { id: "cv-linkedin", t: "Espelhar as mudanças no LinkedIn e no GitHub", d: "Fixar no GitHub os repositórios de backend conforme forem saindo." }
+    ],
+    dod: "Uma pessoa que lê só o topo do currículo entende que você está indo para backend, e por quê."
+  },
+  {
+    id: "dotnet", title: "C# e .NET na prática", weeks: "Semanas 2 a 5",
+    source: "Habilidades requeridas",
+    goal: "Reconstruir em .NET uma API que você já fez em Node.js na UnB, para aprender a stack comparando com algo que você conhece bem.",
+    tasks: [
+      { id: "dn-csharp", t: "Fundamentos de C#", d: "Tipos, records, nullable reference types, generics, LINQ e tratamento de exceções." },
+      { id: "dn-async", t: "async/await e Task", d: "Comparar com Promises do Node: o que bloqueia, o que não bloqueia, e quando usar ConfigureAwait." },
+      { id: "dn-di", t: "Injeção de dependência e ciclos de vida", d: "Singleton, Scoped e Transient: o que quebra quando você escolhe errado." },
+      { id: "dn-api", t: "ASP.NET Core: minimal APIs e controllers", d: "Rotas, validação, middlewares, tratamento global de erros e Swagger/OpenAPI." },
+      { id: "dn-rebuild", t: "Reconstruir a API da UnB em .NET", d: "Mesmo domínio, mesmos endpoints. Anote cada diferença de tipagem, async e DI." },
+      { id: "dn-readme", t: "Publicar no GitHub com README de decisões", d: "Por que .NET, trade-offs em relação ao Node e o que você faria diferente agora." }
+    ],
+    dod: "Você explica em 2 minutos por que escolheu .NET para esse problema, quais trade-offs encontrou em relação ao Node e qual decisão de design tomaria diferente hoje."
+  },
+  {
+    id: "data", title: "SQL Server, Entity Framework e Dapper", weeks: "Semanas 6 a 9",
+    source: "Habilidades requeridas",
+    goal: "Ligar a API a um banco real e entender quando usar ORM e quando escrever SQL, medindo em vez de opinar.",
+    tasks: [
+      { id: "db-sql", t: "SQL Server no Docker", d: "Modelagem, chaves, índices e leitura de plano de execução." },
+      { id: "db-ef", t: "Entity Framework Core", d: "DbContext, migrations, relacionamentos, tracking vs AsNoTracking e o problema N+1." },
+      { id: "db-dapper", t: "Dapper nas consultas de leitura", d: "Mesma consulta nas duas abordagens, no mesmo projeto." },
+      { id: "db-bench", t: "Investigar uma consulta lenta", d: "Gerar volume de dados, medir, propor correção (índice, projeção, Dapper) e medir de novo." },
+      { id: "db-course", t: "Curso curto de Entity Framework Core", d: "Um só, aplicado direto no projeto, em vez de vários cursos genéricos." }
+    ],
+    dod: "O README tem uma tabela de antes e depois da otimização, e você sabe dizer por que escolheu EF ou Dapper em cada caso."
+  },
+  {
+    id: "tests", title: "Testes automatizados em C#", weeks: "Semanas 10 e 11",
+    source: "Formação complementar",
+    goal: "Proteger o projeto antes de dividi-lo em serviços, e ter um sinal concreto de qualidade de engenharia.",
+    tasks: [
+      { id: "ts-unit", t: "Testes de unidade com xUnit", d: "Regras de negócio isoladas, com dublês só onde fazem sentido." },
+      { id: "ts-int", t: "Testes de integração da API", d: "WebApplicationFactory testando os endpoints de ponta a ponta." },
+      { id: "ts-db", t: "Banco real nos testes com Testcontainers", d: "SQL Server subindo em container durante o teste." },
+      { id: "ts-ci", t: "Pipeline no GitHub Actions", d: "Build e testes a cada push, com badge no README." }
+    ],
+    dod: "Uma mudança que quebra uma regra de negócio falha no CI antes de chegar à main."
+  },
+  {
+    id: "msg", title: "Mensageria e microsserviços", weeks: "Semanas 12 a 16",
+    source: "Habilidades requeridas",
+    goal: "Dividir o sistema em dois serviços que conversam por eventos, e entender os problemas que isso cria.",
+    tasks: [
+      { id: "ms-split", t: "Separar o projeto em dois serviços", d: "Cada um com seu banco, orquestrados com Docker Compose." },
+      { id: "ms-rabbit", t: "RabbitMQ", d: "Filas, exchanges, ack, retentativas e dead-letter queue." },
+      { id: "ms-idem", t: "Idempotência e padrão Outbox", d: "O que acontece quando a mesma mensagem chega duas vezes, ou o banco salva e a mensagem não sai." },
+      { id: "ms-kafka", t: "Introdução a Kafka", d: "Tópicos, partições, consumer groups e quando escolher Kafka em vez de RabbitMQ." },
+      { id: "ms-adr", t: "Registrar as decisões em ADRs", d: "Um arquivo curto por decisão: contexto, alternativas descartadas, escolha, consequências." }
+    ],
+    dod: "Você desenha a arquitetura no quadro e explica o que acontece quando um dos serviços cai."
+  },
+  {
+    id: "obs", title: "Observabilidade e performance", weeks: "Semanas 17 e 18",
+    source: "Experiência profissional",
+    goal: "Conseguir investigar um problema de performance com dados, que é exatamente o tipo de caso que falta no seu currículo.",
+    tasks: [
+      { id: "ob-logs", t: "Logs estruturados com Serilog", d: "Correlation ID atravessando os dois serviços." },
+      { id: "ob-otel", t: "Traces e métricas com OpenTelemetry", d: "Visualizar no Jaeger ou Grafana, rodando no Compose." },
+      { id: "ob-health", t: "Health checks e readiness", d: "Para o banco e para o broker de mensagens." },
+      { id: "ob-hunt", t: "Caçar um gargalo de propósito", d: "Introduzir uma lentidão realista, achar pelos traces, corrigir e documentar o caminho." }
+    ],
+    dod: "Você tem um print de trace antes e depois, e uma história de investigação que vira o caso técnico de entrevista."
+  },
+  {
+    id: "ai", title: "IA como ferramenta, não substituta", weeks: "Semana 19",
+    source: "Habilidades desejadas",
+    goal: "Transformar seu interesse em IA num diferencial comprovável dentro do trabalho de engenharia backend.",
+    tasks: [
+      { id: "ai-feature", t: "Gerar uma funcionalidade nova com Copilot ou Cursor", d: "Algo real no projeto, como um endpoint de relatório ou um consumidor de eventos." },
+      { id: "ai-review", t: "Revisar criticamente o código gerado", d: "Anotar o que a IA acertou e onde precisou de intervenção sua." },
+      { id: "ai-tests", t: "Validar com testes", d: "Os testes são seus, escritos antes de aceitar a sugestão." },
+      { id: "ai-post", t: "Publicar um post técnico curto", d: "Como você usa IA sem delegar responsabilidade técnica." }
+    ],
+    dod: "Você demonstra a entrega e defende cada decisão, deixando claro onde manteve autonomia."
+  },
+  {
+    id: "story", title: "Narrativas prontas", weeks: "Semana 20",
+    source: "Experiência e learning agility",
+    goal: "Fechar as duas histórias que o feedback pede, usando o que você construiu nas fases anteriores.",
+    tasks: [
+      { id: "st-case", t: "Escrever o caso técnico", d: "Use o formulário no fim da página." },
+      { id: "st-learn", t: "Escrever o ciclo de aprendizado", d: "Eu não sabia X, precisei por causa de Y, aprendi com Z…" },
+      { id: "st-time", t: "Ensaiar em voz alta com cronômetro", d: "Caso técnico em 3 minutos; explicação do projeto .NET em 2." },
+      { id: "st-mock", t: "Fazer uma entrevista simulada", d: "Com alguém da área, pedindo perguntas de aprofundamento." }
+    ],
+    dod: "Você conta as duas histórias no tempo, sem ler, e aguenta duas perguntas de aprofundamento em cada uma."
+  }
+];
+
+const GAPS = [
+  { t: "Backend com .NET e C#", w: "Competência central da vaga, sem evidência no perfil.", p: "dotnet" },
+  { t: "Entity Framework, Dapper e SQL Server", w: "Exigidos e ainda não demonstrados.", p: "data" },
+  { t: "Microsserviços, RabbitMQ e Kafka", w: "Arquitetura distribuída em escala profissional.", p: "msg" },
+  { t: "Decisões de arquitetura e performance", w: "Falta um caso de investigação e ajuste.", p: "obs" },
+  { t: "Posicionamento ainda centrado em front-end", w: "A transição parece acidental, não intencional.", p: "cv" },
+  { t: "Graduação sem data de conclusão", w: "Ambiguidade fácil de eliminar.", p: "cv" },
+  { t: "Formação complementar longe da vaga", w: "Cursos em IA e UX, nenhum em .NET ou testes.", p: "tests" },
+  { t: "IA sem conexão com engenharia backend", w: "Diferencial que ainda não é comprovável.", p: "ai" },
+  { t: "Processo de aprendizado invisível", w: "O currículo mostra a chegada, não o caminho.", p: "story" }
+];
+
+const CASE = [
+  ["problema", "Qual era o problema, e o que nele não era óbvio no começo?"],
+  ["descartada", "Que alternativa você considerou e descartou, e por quê?"],
+  ["escolha", "O que você escolheu e qual trade-off isso representava?"],
+  ["feedback", "Onde recebeu crítica ou feedback?"],
+  ["ajuste", "Como ajustou a abordagem depois?"],
+  ["impacto", "Qual foi o impacto? E qual foi seu papel versus o do time?"]
+];
+const LEARN = [
+  ["x", "Eu não sabia…"],
+  ["y", "Precisei aprender porque…"],
+  ["z", "Usei para aprender…"],
+  ["w", "Apliquei pela primeira vez em…"],
+  ["dific", "Encontrei esta dificuldade…"],
+  ["ajuste", "Ajustei desta forma…"],
+  ["hoje", "Hoje consigo…"]
+];
+
+const KEY = "amanda-roadmap-v1";
+function load() { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; } }
+function save(s) { try { localStorage.setItem(KEY, JSON.stringify(s)); return true; } catch (e) { return false; } }
+let state = load();
+state.done = state.done || {};
+state.text = state.text || {};
+
+const esc = (s) => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const phaseIndex = Object.fromEntries(PHASES.map((p, i) => [p.id, i]));
+
+document.getElementById("gaps").innerHTML = GAPS.map(g =>
+  `<div class="gap"><span><strong>${esc(g.t)}</strong><span class="why">${esc(g.w)}</span></span>` +
+  `<a href="#fase-${g.p}">Fase ${phaseIndex[g.p] + 1}</a></div>`
+).join("");
+
+document.getElementById("phases").innerHTML = PHASES.map((p, i) => `
+  <li class="phase" id="fase-${p.id}">
+    <span class="num" aria-hidden="true">${i + 1}</span>
+    <header>
+      <h3>${esc(p.title)}</h3>
+      <span class="weeks">${esc(p.weeks)}</span>
+      <span class="count" data-count="${p.id}"></span>
+    </header>
+    <span class="source">Feedback: ${esc(p.source)}</span>
+    <p class="goal">${esc(p.goal)}</p>
+    <ul class="tasks">
+      ${p.tasks.map(t => `
+        <li><label>
+          <input type="checkbox" data-task="${t.id}" ${state.done[t.id] ? "checked" : ""}>
+          <span><span class="t">${esc(t.t)}</span><span class="d">${esc(t.d)}</span></span>
+        </label></li>`).join("")}
+    </ul>
+    <div class="dod"><b>Pronto quando</b><p>${esc(p.dod)}</p></div>
+  </li>`).join("");
+
+function fields(list, prefix, el) {
+  el.innerHTML = list.map(([k, label]) => `
+    <div class="field">
+      <label for="${prefix}-${k}">${esc(label)}</label>
+      <textarea id="${prefix}-${k}" data-text="${prefix}-${k}">${esc(state.text[prefix + "-" + k] || "")}</textarea>
+    </div>`).join("");
+}
+fields(CASE, "case", document.getElementById("caseFields"));
+fields(LEARN, "learn", document.getElementById("learnFields"));
+
+function refresh() {
+  let total = 0, done = 0;
+  PHASES.forEach(p => {
+    const d = p.tasks.filter(t => state.done[t.id]).length;
+    total += p.tasks.length; done += d;
+    document.querySelector(`[data-count="${p.id}"]`).textContent = d === p.tasks.length ? "Concluída" : `${d} de ${p.tasks.length}`;
+    document.getElementById("fase-" + p.id).classList.toggle("complete", d === p.tasks.length);
+  });
+  document.getElementById("meterText").textContent = `${done} de ${total} passos`;
+  document.getElementById("meterBar").style.width = (total ? done / total * 100 : 0) + "%";
+}
+refresh();
+
+document.getElementById("phases").addEventListener("change", e => {
+  const id = e.target.dataset.task;
+  if (!id) return;
+  if (e.target.checked) state.done[id] = true; else delete state.done[id];
+  save(state); refresh();
+});
+
+let timer;
+document.getElementById("narrativas").addEventListener("input", e => {
+  const k = e.target.dataset.text;
+  if (!k) return;
+  state.text[k] = e.target.value;
+  const out = document.getElementById(k.startsWith("case") ? "caseSaved" : "learnSaved");
+  clearTimeout(timer);
+  timer = setTimeout(() => { out.textContent = save(state) ? "Salvo neste navegador." : "Não foi possível salvar neste navegador; copie o texto antes de sair."; }, 400);
+});
+
+document.getElementById("copyStories").addEventListener("click", async e => {
+  const block = (title, list, prefix) => title + "\n\n" + list.map(([k, l]) => `${l}\n${state.text[prefix + "-" + k] || ""}`).join("\n\n");
+  const txt = block("Caso técnico", CASE, "case") + "\n\n\n" + block("Como eu aprendo", LEARN, "learn");
+  try { await navigator.clipboard.writeText(txt); e.target.textContent = "Narrativas copiadas"; }
+  catch (err) { e.target.textContent = "Não foi possível copiar"; }
+  setTimeout(() => { e.target.textContent = "Copiar as duas narrativas"; }, 2000);
+});
+
+document.getElementById("resetAll").addEventListener("click", () => {
+  if (!confirm("Apagar todo o progresso e os textos salvos neste navegador?")) return;
+  state = { done: {}, text: {} }; save(state);
+  document.querySelectorAll("[data-task]").forEach(i => i.checked = false);
+  document.querySelectorAll("[data-text]").forEach(t => t.value = "");
+  refresh();
+});
+</script>
+</body>
+</html>
