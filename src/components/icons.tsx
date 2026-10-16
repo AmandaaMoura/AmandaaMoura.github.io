@@ -67,16 +67,23 @@ export const MapIcon = ({ size }: P) => (
   </svg>
 )
 
-export const Rocket = ({ size }: P) => (
-  <svg {...base(size)}>
-    <path d="M12 15c-1.5-1.5-3-3-3-6 0-3.5 3-6 3-6s3 2.5 3 6c0 3-1.5 4.5-3 6Z" />
-    <path d="M9 12.5 6 14l1 4 2.5-1.5M15 12.5 18 14l-1 4-2.5-1.5M12 15v5" />
-  </svg>
-)
-
 export const Chevron = ({ size }: P) => (
   <svg {...base(size)}>
     <path d="m6 9 6 6 6-6" />
+  </svg>
+)
+
+export const Copy = ({ size }: P) => (
+  <svg {...base(size)}>
+    <rect x="8" y="8" width="12" height="12" rx="2" />
+    <path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" />
+  </svg>
+)
+
+export const Reset = ({ size }: P) => (
+  <svg {...base(size)}>
+    <path d="M4 12a8 8 0 1 0 2.4-5.7L4 8.5" />
+    <path d="M4 4v4.5h4.5" />
   </svg>
 )
 

@@ -9,14 +9,13 @@ import {
   profile,
   projectCategories,
   projects,
-  roadmapPhases,
   services,
   skills,
   toolbelt,
   type ProjectCategory,
   type Service,
 } from '../content'
-import { Award, Book, Briefcase, Design, FileText, MapIcon, Rocket, Send, Server, Spark, Web } from './icons'
+import { Award, Book, Briefcase, Design, FileText, MapIcon, Send, Server, Spark, Web } from './icons'
 
 function PageTitle({ children }: { children: ReactNode }) {
   return (
@@ -232,40 +231,6 @@ export function Portfolio() {
         ))}
       </ul>
       <p className="note">Projetos profissionais em repositórios privados. Posso mostrar detalhes numa conversa.</p>
-    </article>
-  )
-}
-
-/* ---------- Roadmap ---------- */
-export function Roadmap() {
-  return (
-    <article>
-      <PageTitle>Roadmap</PageTitle>
-      <div className="about-text">
-        <p>
-          Estou indo de interfaces para sistemas distribuídos. Este é o plano: cerca de 20 semanas construindo uma única
-          API em C# que cresce fase a fase, de um CRUD até serviços com mensageria e observabilidade.
-        </p>
-      </div>
-
-      <ol className="phase-grid">
-        {roadmapPhases.map((p, i) => (
-          <li key={p.title} className="phase-card">
-            <span className="phase-num">{i + 1}</span>
-            <div>
-              <h4>{p.title}</h4>
-              <p className="muted">{p.weeks}</p>
-            </div>
-          </li>
-        ))}
-      </ol>
-
-      <div className="actions-end">
-        <a className="soft-btn" href="/roadmap/">
-          <Rocket />
-          Abrir roadmap completo
-        </a>
-      </div>
     </article>
   )
 }

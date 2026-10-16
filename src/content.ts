@@ -189,14 +189,3 @@ export const toolbelt = [
   'C# e .NET',
   'Git',
 ]
-
-export const roadmapPhases = [
-  { title: 'Ajustes no currículo e no perfil', weeks: 'Semana 1' },
-  { title: 'C# e .NET na prática', weeks: 'Semanas 2 a 5' },
-  { title: 'SQL Server, Entity Framework e Dapper', weeks: 'Semanas 6 a 9' },
-  { title: 'Testes automatizados em C#', weeks: 'Semanas 10 e 11' },
-  { title: 'Mensageria e microsserviços', weeks: 'Semanas 12 a 16' },
-  { title: 'Observabilidade e performance', weeks: 'Semanas 17 e 18' },
-  { title: 'IA como ferramenta, não substituta', weeks: 'Semana 19' },
-  { title: 'Narrativas prontas para entrevista', weeks: 'Semana 20' },
-]

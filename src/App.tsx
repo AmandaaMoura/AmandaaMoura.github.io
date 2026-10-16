@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type ComponentType } from 'react'
 import Sidebar from './components/Sidebar'
-import { About, Contact, Portfolio, Resume, Roadmap } from './components/Pages'
+import { About, Contact, Portfolio, Resume } from './components/Pages'
+import { Roadmap } from './components/Roadmap'
 import './App.css'
 
 type Tab = { id: string; label: string; Page: ComponentType }
