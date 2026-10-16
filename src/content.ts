@@ -111,7 +111,7 @@ export const projects: Project[] = [
 export const skills = [
   { group: 'Front-end', items: ['React', 'Next.js', 'TypeScript', 'HTML', 'CSS', 'Tailwind'] },
   { group: 'Back-end', items: ['Django', 'Python', 'Node.js', 'Express', 'Docker', 'C# e .NET (estudando)'] },
-  { group: 'Design e produto', items: ['UX/UI Design', 'Figma', 'Requisitos de software', 'Scrum'] },
+  { group: 'Design e produto', items: ['UX/UI Design', 'Figma', 'Requisitos de software', 'Metodologias ágeis'] },
   { group: 'IA', items: ['Engenharia de prompt', 'AI Engineering', 'Avaliação de modelos de linguagem'] },
 ]
 
