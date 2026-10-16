@@ -3,43 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Roadmap backend .NET | Amanda Moura</title>
+<title>Roadmap backend .NET | Amanda de Moura</title>
 <meta name="description" content="Plano de estudos e prática de Amanda Moura para a transição de front-end para backend .NET, montado a partir de um feedback de currículo.">
+<link rel="icon" type="image/png" href="/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800&display=swap" rel="stylesheet">
 <style>
 :root {
-  --paper: #F2F3F7;
-  --surface: #FFFFFF;
-  --ink: #1C1A2E;
-  --muted: #5F5C74;
-  --line: #D9D7E6;
-  --violet: #512BD4;
-  --violet-soft: #E9E4FB;
-  --done: #0E7C61;
-  --done-soft: #DDF2EA;
-  --focus: #512BD4;
-  --display: "Bricolage Grotesque", "Segoe UI", sans-serif;
-  --body: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --paper: #14131F;
-    --surface: #1D1B2C;
-    --ink: #ECEAF6;
-    --muted: #A5A1BE;
-    --line: #34314A;
-    --violet: #9B82FF;
-    --violet-soft: #2B2450;
-    --done: #4FD1A5;
-    --done-soft: #183A30;
-    --focus: #B7A6FF;
-  }
-}
-:root[data-theme="dark"] {
-  --paper: #14131F; --surface: #1D1B2C; --ink: #ECEAF6; --muted: #A5A1BE; --line: #34314A;
-  --violet: #9B82FF; --violet-soft: #2B2450; --done: #4FD1A5; --done-soft: #183A30; --focus: #B7A6FF;
+  color-scheme: dark;
+  --paper: #0F0A11;
+  --surface: #181119;
+  --ink: #F6EEF0;
+  --muted: #B8A9B1;
+  --line: #2F2431;
+  --violet: #FF7D6E;
+  --violet-soft: rgba(238, 58, 47, 0.16);
+  --done: #4FD1A5;
+  --done-soft: #183A30;
+  --focus: #FF7D6E;
+  --display: "Poppins", "Segoe UI", sans-serif;
+  --body: "Poppins", "Segoe UI", system-ui, sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -77,6 +61,7 @@ a { color: var(--violet); }
 .hero h1 {
   font-family: var(--display);
   font-weight: 800;
+  letter-spacing: -0.035em;
   font-size: clamp(2.4rem, 7vw, 4.6rem);
   line-height: 1.02;
   letter-spacing: -0.025em;
@@ -97,14 +82,14 @@ a { color: var(--violet); }
   content: ""; position: absolute; top: 11px; left: 0; right: 0; height: 3px; background: var(--ink);
 }
 .graph li:last-child::before {
-  background: repeating-linear-gradient(90deg, var(--violet) 0 10px, transparent 10px 18px);
+  background: repeating-linear-gradient(90deg, #EE3A2F 0 10px, transparent 10px 18px);
 }
 .graph li::after { /* commit node */
   content: ""; position: absolute; top: 2px; left: 0;
   width: 21px; height: 21px; border-radius: 50%;
   background: var(--paper); border: 3px solid var(--ink);
 }
-.graph li.next::after { border-color: var(--violet); background: var(--violet); box-shadow: 0 0 0 6px var(--violet-soft); }
+.graph li.next::after { border-color: #EE3A2F; background: #EE3A2F; box-shadow: 0 0 0 6px var(--violet-soft), 0 0 22px rgba(238, 58, 47, 0.6); }
 .graph .stack { font-family: var(--display); font-weight: 700; font-size: 1.35rem; line-height: 1.15; display: block; }
 .graph li.next .stack { color: var(--violet); }
 .graph .where { display: block; color: var(--muted); font-size: .92rem; margin-top: 4px; }
@@ -112,7 +97,7 @@ a { color: var(--violet); }
   .graph ol { grid-template-columns: 1fr; }
   .graph li { padding: 0 0 28px 40px; }
   .graph li::before { top: 0; bottom: 0; left: 9px; right: auto; width: 3px; height: auto; }
-  .graph li:last-child::before { background: repeating-linear-gradient(180deg, var(--violet) 0 10px, transparent 10px 18px); bottom: 8px; }
+  .graph li:last-child::before { background: repeating-linear-gradient(180deg, #EE3A2F 0 10px, transparent 10px 18px); bottom: 8px; }
   .graph li::after { top: 0; }
 }
 
@@ -166,7 +151,7 @@ h2 {
 .tasks .d { display: block; color: var(--muted); font-size: .93rem; margin-top: 2px; }
 .tasks input:checked + span .t { text-decoration: line-through; text-decoration-color: var(--muted); color: var(--muted); }
 
-.dod { border-left: 3px solid var(--violet); padding: 2px 0 2px 16px; max-width: 64ch; }
+.dod { border-left: 3px solid #EE3A2F; padding: 2px 0 2px 16px; max-width: 64ch; }
 .dod b { display: block; font-weight: 600; margin-bottom: 2px; }
 .dod p { margin: 0; color: var(--muted); }
 
@@ -198,7 +183,7 @@ footer { padding: 40px 0 64px; color: var(--muted); font-size: .92rem; border-to
 
 <div class="top">
   <div class="wrap">
-    <a class="who" href="/">Amanda Moura</a>
+    <a class="who" href="/">Amanda de Moura</a>
     <div class="meter" aria-live="polite">
       <span id="meterText">0 de 0 passos</span>
       <div class="bar" aria-hidden="true"><span id="meterBar"></span></div>
