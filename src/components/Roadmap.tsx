@@ -1,6 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
-import { CASE, GAPS, LEARN, PHASES, STORAGE_KEY } from '../roadmapData'
-import { Copy, Reset } from './icons'
+import { useState } from 'react'
+import { GAPS, PHASES, STORAGE_KEY } from '../roadmapData'
 
 type Saved = { done: Record<string, boolean>; text: Record<string, string> }
 
@@ -32,40 +31,8 @@ const trail = [
 const total = PHASES.reduce((n, p) => n + p.tasks.length, 0)
 const phaseNumber = Object.fromEntries(PHASES.map((p, i) => [p.id, i + 1]))
 
-function Fields({
-  list,
-  prefix,
-  text,
-  onChange,
-}: {
-  list: [string, string][]
-  prefix: string
-  text: Record<string, string>
-  onChange: (key: string, value: string) => void
-}) {
-  return (
-    <>
-      {list.map(([k, label]) => {
-        const key = `${prefix}-${k}`
-        return (
-          <label key={key} className="story-field">
-            <span>{label}</span>
-            <textarea rows={3} value={text[key] || ''} onChange={(e) => onChange(key, e.target.value)} />
-          </label>
-        )
-      })}
-    </>
-  )
-}
-
 export function Roadmap() {
   const [state, setState] = useState<Saved>(load)
-  const [savedMsg, setSavedMsg] = useState('')
-  const [copied, setCopied] = useState('')
-  const timer = useRef<number | undefined>(undefined)
-
-  useEffect(() => () => window.clearTimeout(timer.current), [])
-
   const doneCount = PHASES.reduce((n, p) => n + p.tasks.filter((t) => state.done[t.id]).length, 0)
 
   const toggle = (id: string, on: boolean) => {
@@ -75,35 +42,6 @@ export function Roadmap() {
     const next = { ...state, done }
     setState(next)
     persist(next)
-  }
-
-  const write = (key: string, value: string) => {
-    const next = { ...state, text: { ...state.text, [key]: value } }
-    setState(next)
-    window.clearTimeout(timer.current)
-    timer.current = window.setTimeout(() => {
-      setSavedMsg(persist(next) ? 'Salvo neste navegador.' : 'Não foi possível salvar neste navegador; copie o texto antes de sair.')
-    }, 400)
-  }
-
-  const copyStories = async () => {
-    const block = (title: string, list: [string, string][], prefix: string) =>
-      `${title}\n\n${list.map(([k, l]) => `${l}\n${state.text[`${prefix}-${k}`] || ''}`).join('\n\n')}`
-    const txt = `${block('Caso técnico', CASE, 'case')}\n\n\n${block('Como eu aprendo', LEARN, 'learn')}`
-    try {
-      await navigator.clipboard.writeText(txt)
-      setCopied('Narrativas copiadas.')
-    } catch {
-      setCopied('Não foi possível copiar.')
-    }
-  }
-
-  const reset = () => {
-    if (!window.confirm('Apagar todo o progresso e os textos salvos neste navegador?')) return
-    const empty = { done: {}, text: {} }
-    setState(empty)
-    persist(empty)
-    setSavedMsg('')
   }
 
   const jump = (id: string) => {
@@ -202,42 +140,6 @@ export function Roadmap() {
           )
         })}
       </ol>
-
-      <h3 className="section-title">Narrativas para entrevista</h3>
-      <p className="lead-muted">
-        O feedback pede duas histórias prontas. Escreva aqui conforme as fases avançam; o texto fica salvo neste
-        navegador.
-      </p>
-      <div className="stories">
-        <div>
-          <h4>Caso técnico em 3 minutos</h4>
-          <p className="hint">
-            Uma decisão técnica real, sem exagerar o próprio papel e deixando claro o que foi seu e o que foi do time.
-          </p>
-          <Fields list={CASE} prefix="case" text={state.text} onChange={write} />
-        </div>
-        <div>
-          <h4>Como eu aprendo</h4>
-          <p className="hint">O ciclo de aprendizado de uma transição real, como a ida para Node.js, Django ou .NET.</p>
-          <Fields list={LEARN} prefix="learn" text={state.text} onChange={write} />
-        </div>
-      </div>
-
-      <div className="story-actions">
-        <p className="note" aria-live="polite">
-          {copied || savedMsg}
-        </p>
-        <div>
-          <button type="button" className="soft-btn quiet" onClick={reset}>
-            <Reset />
-            Limpar progresso
-          </button>
-          <button type="button" className="soft-btn" onClick={copyStories}>
-            <Copy />
-            Copiar narrativas
-          </button>
-        </div>
-      </div>
     </article>
   )
 }

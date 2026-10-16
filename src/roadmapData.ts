@@ -107,7 +107,7 @@ export const PHASES: Phase[] = [
     source: "Experiência e learning agility",
     goal: "Fechar as duas histórias que o feedback pede, usando o que você construiu nas fases anteriores.",
     tasks: [
-      { id: "st-case", t: "Escrever o caso técnico", d: "Use o formulário no fim da página." },
+      { id: "st-case", t: "Escrever o caso técnico", d: "Problema, alternativa descartada, escolha e trade-off, feedback, ajuste e impacto." },
       { id: "st-learn", t: "Escrever o ciclo de aprendizado", d: "Eu não sabia X, precisei por causa de Y, aprendi com Z…" },
       { id: "st-time", t: "Ensaiar em voz alta com cronômetro", d: "Caso técnico em 3 minutos; explicação do projeto .NET em 2." },
       { id: "st-mock", t: "Fazer uma entrevista simulada", d: "Com alguém da área, pedindo perguntas de aprofundamento." }
